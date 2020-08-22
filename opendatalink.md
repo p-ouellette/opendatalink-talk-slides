@@ -4,6 +4,12 @@ title: Open Data Link
 subtitle: A dataset search engine for open data
 ---
 
+## Outline
+
+\tableofcontents
+
+# Introduction
+
 ## Open Data Link
 
 - Dataset search engine for open data.
@@ -22,6 +28,8 @@ subtitle: A dataset search engine for open data
 - Data publishers can see the wider context of their data.
 
 # Demo
+
+# System overview
 
 ## System overview
 
@@ -122,6 +130,8 @@ For vector with dimension d:
 - Query L Prefix Trees (the LSH Forest) for M candidates
 
 - Compute cosnine similarity of unhashed vectors to return top-M results
+
+# Future work
 
 ## Future work
 
