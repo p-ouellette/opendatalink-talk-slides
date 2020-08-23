@@ -4,12 +4,6 @@ title: Open Data Link
 subtitle: A dataset search engine for open data
 ---
 
-## Outline
-
-\tableofcontents
-
-# Introduction
-
 ## Open Data Link
 
 - Dataset search engine for open data.
@@ -31,7 +25,11 @@ subtitle: A dataset search engine for open data
 
 - Data publishers can see the wider context of their data.
 
-# Demo
+## Demo
+
+## Outline
+
+\tableofcontents
 
 # System overview
 
