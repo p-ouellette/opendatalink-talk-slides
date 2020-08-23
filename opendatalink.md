@@ -43,6 +43,14 @@ subtitle: A dataset search engine for open data
 
 ## Dataset crawl
 
+- 10k of 42k datasets on Socrata.
+
+- 172k columns.
+
+- Most datasets are small.
+
+- Largest datasets have over 100 million rows.
+
 # Joinable table search
 
 ## Minhash[^broder]
