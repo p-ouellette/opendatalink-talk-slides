@@ -15,13 +15,17 @@ subtitle: A dataset search engine for open data
 - Dataset search engine for open data.
 
 - Search methods:
+
     - Semantic keyword search
+
     - Joinable table search
+
     - Unionable table search
 
 ## Motivation
 
-- Governments publish a lot of open data, but discovery is still difficult.
+- Governments and other organizations publish a lot of open data, but discovery
+  is still difficult.
 
 - Data scientists can identify ways to integrate datasets.
 
@@ -33,17 +37,15 @@ subtitle: A dataset search engine for open data
 
 ## System overview
 
-- Crawler downloads datasets and metadata from Socrata.
+\begin{figure}
+\includegraphics[scale=0.35]{system_overview.png}
+\end{figure}
 
-- Data sketches are created for the values of each column, and stored in an
-  SQLite database.
-
-- Server builds indices on metadata (for keyword search) and on column sketches
-  (for joinable and unionable table search).
+## Dataset crawl
 
 # Joinable table search
 
-## Minhash
+## Minhash[^broder]
 
 - Data sketch for estimating Jaccard similarity of sets.
 
@@ -56,6 +58,8 @@ $$J(S, T)=\frac{|S \cap T|}{|S \cup T|}$$
 
 - Minhash LSH hashes similar signatures to the same bucket.
 
+[^broder]: A. Broder, "On the Resemblance and Containment of Documents",
+  Compression and Complexity of Sequences 1997.
 [^mmds]: Mining of Massive Datasets, Chapter 3.
 
 ## LSH Ensemble[^zhu]
