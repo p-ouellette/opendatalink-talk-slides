@@ -97,9 +97,47 @@ $$C(Q, X)=\frac{|Q \cap X|}{|Q|}$$
 - Candidates are ranked by alignment: the fraction of candidate columns that are
   unionable with a query column.
 
-# Semantic keyword search
+# Semantic Keyword Search
 
-## Overview
+## Semantic Keyword Search
+
+ - Problem: Given a list of keywords, return datasets which are more similar 
+ than threshold $t$. 
+    - $0 \le t \le 1$
+
+ - Motivation: Data scientists want a simple way to find new and insightful 
+ datasets
+
+## Our Approach
+
+  - Search on the metadata, not on the data in the dataset
+      - Data in dataset is too noisy
+
+  - Metadata that we have:
+  
+     - Dataset description
+
+     - Column description
+
+     - Datasets tags
+
+## Our Approach (Cont.)
+
+  - Use semantic NOT syntactic similarity 
+
+    - Example: Fish & Seafood
+
+    - Example: Coronavirus & Respitory System
+
+## Others Approach
+
+ - Google Dataset Search
+
+\begin{figure}
+\includegraphics[scale=0.2]{google_dataset_search.png}
+\end{figure}
+
+## System Overview
 
 - FastText: words -> vectors
 
