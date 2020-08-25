@@ -51,6 +51,23 @@ subtitle: A dataset search engine for open data
 
 # Joinable table search
 
+## Joinable table search
+
+\begin{figure}
+\includegraphics[scale=0.43]{join_example.png}
+\end{figure}
+
+## Joinable table search
+
+- Attributes are treated as sets.
+
+- Sets are encoded with minhash data sketches.
+
+- A table T is joinable with the query U if
+  $Containment(X \in T, Q \in U) \geq t$.
+
+- We use an LSH index for fast querying.
+
 ## Minhash[^broder]
 
 - Data sketch for estimating Jaccard similarity of sets.
@@ -86,6 +103,12 @@ $$C(Q, X)=\frac{|Q \cap X|}{|Q|}$$
   Ensemble: Internet-Scale Domain Search", VLDB 2016.
 
 # Unionable table search
+
+## Unionable table search
+
+\begin{figure}
+\includegraphics[scale=0.43]{union_example.png}
+\end{figure}
 
 ## Unionable table search
 
