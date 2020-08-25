@@ -124,8 +124,7 @@ $$C(Q, X)=\frac{|Q \cap X|}{|Q|}$$
 
 ## Semantic Keyword Search
 
- - Problem: Given a list of keywords, return datasets which are more similar 
- than threshold $t$. 
+ - Problem: Given a list of keywords, return top-k similar datasets
 
  - Motivation: Data scientists want a simple way to find new and insightful 
  datasets
@@ -145,7 +144,7 @@ $$C(Q, X)=\frac{|Q \cap X|}{|Q|}$$
 
 ## Our Approach (Cont.)
 
-- Use semantic NOT syntactic similarity 
+- Use semantic similarity 
 
   - Example: Fish & Seafood
 
@@ -183,13 +182,29 @@ $$C(Q, X)=\frac{|Q \cap X|}{|Q|}$$
 
 - Closer a pair of vectors, closer the semantics of the two words
 
-  - PICTURE
+- Example: King and Queen have high cosine similarity
+
+\begin{figure}
+\includegraphics[scale=0.35]{cosine_similarity.png}
+\end{figure}
 
 ## Simhash
 
 - Embedding Vector -> Bit Vector
 
-  - PICTURE
+- Word: [puple, blue, green]
+
+  - Neighbor: [1, 1, 0]
+
+  - Family: [1, 0, 0]
+
+  - King: [0, 0, 0]
+
+  - Queen: [0, 0, 0]
+
+\begin{figure}
+\includegraphics[scale=0.35]{sim_hash.png}
+\end{figure}
 
 ## Locality Sensitive Hashing (LSH)
 
@@ -203,9 +218,9 @@ $$C(Q, X)=\frac{|Q \cap X|}{|Q|}$$
 
 ## SimHash LSH (Cont.)
 
-- Perdefined # of hash tables
+- Predefined # of hash tables
 
-- Query each L hash table for M candidates
+- Query each hash table for M candidates
 
   - $M \geq k$
 
@@ -219,9 +234,11 @@ vectors
 
 - Must be retuned when data size significantly changes
 
-- PICTURE
+\begin{figure}
+\includegraphics[scale=0.6]{lsh_problem.png}
+\end{figure}
 
-## LSH Forest
+## LSH Forest[^lshforest]
 
 - Underlying data structure: Prefix Tree or Trie
 
@@ -229,19 +246,37 @@ vectors
 
   - Predefined # of prefix trees
 
-  - Query each L hash table for M candidates
+  - Ascend each prefix tree for M candidates
 
     - $M \geq k$
+
+[^lshforest]: Mayank Bawa, Tyson Condie, and Prasanna Ganesan. 2005. [*LSH forest: self-tuning indexes for similarity search*](https://doi.org/10.1145/1060745.1060840)
 
 ## LSH Forest (Cont.)
 
 - Variable length hashing in prefix tree solves LSH's problems
 
-- PICTURE
+\begin{figure}
+\includegraphics[scale=0.4]{prefix_tree.png}
+\end{figure}
+
+  - Add Bit Vector: [0, 0, 1, ...]
+
+\begin{figure}
+\includegraphics[scale=0.4]{prefix_tree_add.png}
+\end{figure}
 
 - Prefix Tree expands and contracts to account for # of embedding vectors
 
   - Thus, no hand tuning
+
+## Review
+
+- FastText: Word in Metadata -> Embedding vector
+
+- SimHash: Embedding Vector -> Bit Vector
+
+- LSH Forest: Index on Bit Vectors 
 
 ## Answering Queries
 
