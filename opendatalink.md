@@ -103,31 +103,30 @@ $$C(Q, X)=\frac{|Q \cap X|}{|Q|}$$
 
  - Problem: Given a list of keywords, return datasets which are more similar 
  than threshold $t$. 
-    - $0 \le t \le 1$
 
  - Motivation: Data scientists want a simple way to find new and insightful 
  datasets
 
 ## Our Approach
 
-  - Search on the metadata, not on the data in the dataset
-      - Data in dataset is too noisy
+- Search on the metadata, not on the data in the dataset
+  - Data in dataset is too noisy
 
-  - Metadata that we have:
-  
-     - Dataset description
+- Metadata that we have:
 
-     - Column description
+  - Dataset description
 
-     - Datasets tags
+  - Column description
+
+  - Datasets tags
 
 ## Our Approach (Cont.)
 
-  - Use semantic NOT syntactic similarity 
+- Use semantic NOT syntactic similarity 
 
-    - Example: Fish & Seafood
+  - Example: Fish & Seafood
 
-    - Example: Coronavirus & Respitory System
+  - Example: Coronavirus & Respitory System
 
 ## Others Approach
 
@@ -139,53 +138,114 @@ $$C(Q, X)=\frac{|Q \cap X|}{|Q|}$$
 
 ## System Overview
 
-- FastText: words -> vectors
+- FastText: word in dataset's metadata -> embedding vector
 
-- SimHash: vectors -> bit vectors
+- SimHash: embedding vector -> bit vector
 
-- LSH: similarity search on bit vectors
+- Locality Sensitive Hashing (LSH): build index on the bit vector of each word
 
-## FastText
+## FastText[^fastText]
 
-- Vectors represent the semantics of words
+- Word in dataset's metadata -> embedding vector
 
-- Closer a pair of vectors, closer the semantics of the two words
+- Embedding vector represent the semantics of words
+
+- Embedding vectors are learned from wikipedia articles
+
+[^fastText]: A. Joulin, E. Grave, P. Bojanowski, T. Mikolov, [*Bag of Tricks for Efficient Text Classification*](https://arxiv.org/abs/1607.01759)
+
+## FastText (Cont.)
 
 - closeness or similarity of vectors := Cosine-Similarity
 
+- Closer a pair of vectors, closer the semantics of the two words
+
+  - PICTURE
+
 ## Simhash
 
-- Vector of floats -> Vector of bits
+- Embedding Vector -> Bit Vector
 
-hash := an array of length H
-For vector with dimension d:
-  Compute wether it is above or below d hyperplanes H times
+  - PICTURE
 
-## SimHash LSH
+## Locality Sensitive Hashing (LSH)
 
-- L hash tables of bit vectors
+- Underlying data structure: Hash Table
+
+  - Predefined # of buckets
+
+- Insert SimHashed embedding vectors into hash table
+
+- Collitions in hash table buckets are candidate pairs. 
+
+## SimHash LSH (Cont.)
+
+- Perdefined # of hash tables
 
 - Query each L hash table for M candidates
 
-- Compute cosnine similarity of unhashed vectors to return top-M results
+  - $M \geq k$
+
+- Order M candidates into a top-k list by the cosine similairty of embedding 
+vectors
+
+## Problem with SimHash LSH
+
+- The # of hash tables and # of buckets in each hash table must be 
+**hand tuned**
+
+- Must be retuned when data size significantly changes
+
+- PICTURE
 
 ## LSH Forest
 
-- Prefix Tree of bit vectors
+- Underlying data structure: Prefix Tree or Trie
 
-- Variable length hash in tree solves tunability probelm
+- Similar to LSH
 
-- Query L Prefix Trees (the LSH Forest) for M candidates
+  - Predefined # of prefix trees
 
-- Compute cosnine similarity of unhashed vectors to return top-M results
+  - Query each L hash table for M candidates
+
+    - $M \geq k$
+
+## LSH Forest (Cont.)
+
+- Variable length hashing in prefix tree solves LSH's problems
+
+- PICTURE
+
+- Prefix Tree expands and contracts to account for # of embedding vectors
+
+  - Thus, no hand tuning
+
+## Answering Queries
+
+- Query the index with each keyword in the keyword list
+
+- Add the results to a list
+
+- Rank datasets by how often they appear in the list
+
+## Problems
+
+- No semantic relationships **between** words
+
+  - Example: Keyword List := "traffic violations"
+
+    - Produces good results for "traffic" and "violations", but not 
+    "traffic violations"
 
 # Future work
 
 ## Future work
 
-- Organizing datasets into a directory structure for navigation.
+- Improve ability to see semantic relationships between words
 
-- Use semantic similarity of attribute names in unionable table search.
+- Organize datasets into a directory structure
+
+- Use semantic similarity of column names in unionable table search.
 
 - Similar dataset search based on metadata similarity.
 
